@@ -1,10 +1,14 @@
 package com.heroes.hero.service;
 
 import com.heroes.hero.dto.HeroDto;
+import com.heroes.hero.dto.HeroResponse;
 import com.heroes.hero.exceptions.HeroNotFoundException;
 import com.heroes.hero.model.Hero;
 import com.heroes.hero.repository.HeroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,10 +41,23 @@ public class HeroServiceImpl implements HeroService{
     }
 
     @Override
-    public List<HeroDto> getAllHeroes() {
-        List<Hero> hero = repository.findAll();
+    public HeroResponse getAllHeroes(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+
+        Page<Hero> heroes = repository.findAll(pageable);
+        List<Hero> listOfHeroes = heroes.getContent();
         //map will return a new list
-        return hero.stream().map(h -> mapToDto(h)).collect(Collectors.toList());
+        List<HeroDto> content = listOfHeroes.stream().map(h -> mapToDto(h)).collect(Collectors.toList());
+
+        HeroResponse response = new HeroResponse();
+        response.setContent(content);
+        response.setPageNo(heroes.getNumber());
+        response.setPageSize(heroes.getSize());
+        response.setTotalElements(heroes.getTotalElements());
+        response.setTotalPages(heroes.getTotalPages());
+        response.setLast(heroes.isLast());
+
+        return response;
     }
 
     @Override

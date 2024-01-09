@@ -1,6 +1,7 @@
 package com.heroes.hero.controller;
 
 import com.heroes.hero.dto.HeroDto;
+import com.heroes.hero.dto.HeroResponse;
 import com.heroes.hero.model.Hero;
 import com.heroes.hero.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,10 @@ public class Controller {
     }
 
     @GetMapping("/hero")
-    public ResponseEntity<List<HeroDto>> getHeroes(){
+    public ResponseEntity<HeroResponse> getHeroes(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pagNo,
+                                                  @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize){
 
-      return new ResponseEntity<>(heroService.getAllHeroes(), HttpStatus.OK);
+      return new ResponseEntity<>(heroService.getAllHeroes(pagNo, pageSize), HttpStatus.OK);
     }
 
     @GetMapping("/hero/{id}")
