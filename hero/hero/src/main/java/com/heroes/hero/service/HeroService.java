@@ -9,10 +9,7 @@ public interface HeroService {
 
     HeroDto createHero(HeroDto heroDto);
     HeroResponse getAllHeroes(int pageNo, int pageSize);
-
     HeroDto getHeroById(int id);
-
     HeroDto updateHero(HeroDto heroDto, int id);
-
     void deleteHero(int id);
 }

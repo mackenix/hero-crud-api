@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,10 +18,11 @@ import java.util.stream.Collectors;
 @Service
 public class HeroServiceImpl implements HeroService{
 
-    private HeroRepository repository;
+    private final HeroRepository repository;
 
     @Autowired
     public HeroServiceImpl(HeroRepository repository) {
+        Assert.notNull(repository, "HeroRepository must not be null!");
         this.repository = repository;
     }
 

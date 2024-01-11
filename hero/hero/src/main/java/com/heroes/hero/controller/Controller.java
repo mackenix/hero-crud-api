@@ -7,24 +7,26 @@ import com.heroes.hero.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/heroes/")
+@RequestMapping("/v1/")
 public class Controller {
-    private HeroService heroService;
+    private final HeroService heroService;
 
     @Autowired
     public Controller(HeroService heroService) {
+        Assert.notNull(heroService, "The heroService cannot be null!");
         this.heroService = heroService;
     }
 
     @GetMapping("/")
     public String hello(){
-        return "Hero CRUD Service";
+        return "Hero CRUD Service v1.0.0";
     }
 
     @GetMapping("/hero")
