@@ -6,7 +6,6 @@ import com.heroes.hero.dto.HeroResponse;
 import java.util.List;
 
 public interface HeroService {
-
     HeroDto createHero(HeroDto heroDto);
     HeroResponse getAllHeroes(int pageNo, int pageSize);
     HeroDto getHeroById(int id);

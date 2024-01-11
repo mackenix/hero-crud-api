@@ -49,7 +49,7 @@ public class HeroServiceImpl implements HeroService{
         Page<Hero> heroes = repository.findAll(pageable);
         List<Hero> listOfHeroes = heroes.getContent();
         //map will return a new list
-        List<HeroDto> content = listOfHeroes.stream().map(h -> mapToDto(h)).collect(Collectors.toList());
+        List<HeroDto> content = listOfHeroes.stream().map(this::mapToDto).collect(Collectors.toList());
 
         HeroResponse response = new HeroResponse();
         response.setContent(content);

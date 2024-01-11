@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/")
+@RequestMapping("/v1/hero/")
 public class Controller {
     private final HeroService heroService;
 
@@ -29,14 +29,14 @@ public class Controller {
         return "Hero CRUD Service v1.0.0";
     }
 
-    @GetMapping("/hero")
+    @GetMapping("/heroes")
     public ResponseEntity<HeroResponse> getHeroes(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pagNo,
                                                   @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize){
 
       return new ResponseEntity<>(heroService.getAllHeroes(pagNo, pageSize), HttpStatus.OK);
     }
 
-    @GetMapping("/hero/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<HeroDto> getHeroDetails(@PathVariable int id){
 
         return new ResponseEntity<>(heroService.getHeroById(id), HttpStatus.OK);
