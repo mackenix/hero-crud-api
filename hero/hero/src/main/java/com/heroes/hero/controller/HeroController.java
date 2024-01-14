@@ -2,7 +2,6 @@ package com.heroes.hero.controller;
 
 import com.heroes.hero.dto.HeroDto;
 import com.heroes.hero.dto.HeroResponse;
-import com.heroes.hero.model.Hero;
 import com.heroes.hero.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,16 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 @RequestMapping("/v1/hero/")
-public class Controller {
+public class HeroController {
     private final HeroService heroService;
 
     @Autowired
-    public Controller(HeroService heroService) {
+    public HeroController(HeroService heroService) {
         Assert.notNull(heroService, "The heroService cannot be null!");
         this.heroService = heroService;
     }
